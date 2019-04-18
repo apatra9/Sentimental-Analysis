@@ -28,7 +28,7 @@ class newtc(object):
         #Regex cleaning
         return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split()) 
   
-    def get_tweet_sentiment(self, tweet): 
+    def calc(self, tweet): 
 
         # create TextBlob object
         analysis = TextBlob(self.clean(tweet)) 
@@ -48,24 +48,24 @@ class newtc(object):
             fetched = self.api.search(q = query, count = count) 
             for tweet in fetched: 
                 # empty dictionary
-                parsed_tweet = {} 
-                parsed_tweet['text'] = tweet.text 
-                parsed_tweet['sentiment'] = self.get_tweet_sentiment(tweet.text) 
+                parsed = {} 
+                parsed['text'] = tweet.text 
+                parsed['sentiment'] = self.calc(tweet.text) 
   
                 
                 if tweet.retweet_count > 0: 
                     # if tweet has retweets, ensure that it is appended only once 
-                    if parsed_tweet not in tweets: 
-                        tweets.append(parsed_tweet) 
+                    if parsed not in tweets: 
+                        tweets.append(parsed) 
                 else: 
-                    tweets.append(parsed_tweet) 
+                    tweets.append(parsed) 
   
             
             return tweets 
   
-        except tweepy.TweepError as e: 
+        except tweepy.TweepError as x: 
             
-            print("Error : " + str(e)) 
+            print("Error : " + str(x)) 
   
 def main(): 
     
