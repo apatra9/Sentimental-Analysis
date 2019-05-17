@@ -1,5 +1,5 @@
-# Sentimental-Analysis
-Analyzing sentiment of tweets on a particular topic
+
+Analyzing sentiment of tweets on a particular topic.
 
 
 PREREQUISITES
